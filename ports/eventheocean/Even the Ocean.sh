@@ -24,19 +24,15 @@ cd "$GAMEDIR"
 # Logging
 > "$GAMEDIR/log.txt" && exec > >(tee "$GAMEDIR/log.txt") 2>&1
 
-# Check for game data
-if [ ! -d "$GAMEDIR/gamedata" ]; then
-  echo "Error: gamedata folder not found."
-  echo "Please copy the 'gamedata' folder from your GOG or Steam Linux installation"
-  echo "of Even the Ocean into $GAMEDIR/"
-  sleep 5
-  pm_finish
-  exit 1
-fi
+# Create gamedata directory if needed
+mkdir -p "$GAMEDIR/gamedata"
 
-if [ ! -f "$GAMEDIR/gamedata/EventheOcean" ]; then
-  echo "Error: EventheOcean executable not found in gamedata/."
-  echo "Please copy the full gamedata folder from the Linux version of Even the Ocean."
+# Check for game assets
+if [ ! -d "$GAMEDIR/gamedata/assets" ]; then
+  echo "Error: Game assets not found."
+  echo "Please copy the 'assets' folder and 'manifest' file from your Even the Ocean"
+  echo "installation (Windows version from Steam, or the open-source GitHub repo)"
+  echo "into $GAMEDIR/gamedata/"
   sleep 5
   pm_finish
   exit 1
@@ -49,6 +45,14 @@ bind_directories ~/.config/EvenTheOcean "$GAMEDIR/conf/.EvenTheOcean"
 PATCH_VERSION="1"
 if [ ! -f "$GAMEDIR/.patched" ] || [ "$(cat "$GAMEDIR/.patched")" != "$PATCH_VERSION" ]; then
   echo "Applying Even the Ocean port patches (v${PATCH_VERSION})..."
+
+  # Install game binary and runtime (cross-compiled for aarch64)
+  for f in EventheOcean regexp.dso std.dso zlib.dso; do
+    if [ -f "$GAMEDIR/eventheocean/gamedata/$f" ]; then
+      cp "$GAMEDIR/eventheocean/gamedata/$f" "$GAMEDIR/gamedata/$f"
+      echo "  - Installed $f"
+    fi
+  done
 
   # Install patched lime-legacy.ndll (custom build with handheld fixes)
   if [ -f "$GAMEDIR/eventheocean/lime-legacy.ndll" ]; then

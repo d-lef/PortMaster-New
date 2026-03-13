@@ -7,7 +7,7 @@
     "title": "Even the Ocean",
     "porter": ["d.lefanov"],
     "desc": "Even the Ocean is a 2D action-platformer following Aliph, a power plant technician, through a world where Light and Dark energy shape everything. Explore diverse environments, solve platforming challenges, and uncover a story about duty, nature, and the forces that connect us.",
-    "inst": "Copy the full 'gamedata' folder from your GOG or Steam Linux installation of Even the Ocean into the port directory (ports/eventheocean/).",
+    "inst": "Copy the 'assets' folder and 'manifest' file from your Even the Ocean installation (Windows version from Steam) or from the open-source GitHub repo into ports/eventheocean/gamedata/.",
     "genres": ["action", "platformer", "adventure"],
     "image": {},
     "rtr": false,

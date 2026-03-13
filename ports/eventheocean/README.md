@@ -2,34 +2,32 @@
 
 ## Thanks
 
-Thanks to [Analgesic Productions](https://twitter.com/han_tani) (Melos Han-Tani & Marina Kittaka) for creating Even the Ocean and open-sourcing the game code.
-
-- Game repository: https://github.com/analgesicproductions/Even-The-Ocean-Open-Source
+Thanks to [Analgesic Productions](https://twitter.com/han_tani) (Melos Han-Tani & Marina Kittaka) for creating Even the Ocean and releasing the game as [99%-open-source](https://github.com/analgesicproductions/Even-The-Ocean-Open-Source).
 
 ## Installation
 
-1. Purchase Even the Ocean from [GOG](https://www.gog.com/game/even_the_ocean) or [Steam](https://store.steampowered.com/app/265470/Even_the_Ocean/)
-2. Install the **Linux** version of the game
-3. Copy the entire `gamedata` folder from the installation into `ports/eventheocean/` on your device
-4. The port will automatically apply necessary patches on first launch
+The game is available on [Steam](https://store.steampowered.com/app/265470/Even_the_Ocean/) (Windows/Mac only). The source code and assets are also available on [GitHub](https://github.com/analgesicproductions/Even-The-Ocean-Open-Source).
 
-### GOG Linux
+Copy the following into `ports/eventheocean/gamedata/`:
+- `assets/` folder (art, music, scripts, maps)
+- `manifest` file
 
-After downloading the GOG installer, extract it:
-```
-unzip even_the_ocean_*.sh -d eto_extracted/
-```
-The `gamedata` folder is inside `data/noarch/game/`.
+### From Steam (Windows version)
 
-### Steam Linux
+1. Install Even the Ocean on Steam
+2. Right-click > Properties > Local Files > Browse Local Files
+3. Copy the `assets` folder and `manifest` file into `ports/eventheocean/gamedata/`
 
-Right-click the game in Steam > Properties > Local Files > Browse Local Files.
-Copy the `gamedata` folder.
+### From the open-source GitHub repo
 
-## What the port does
+1. Clone or download https://github.com/analgesicproductions/Even-The-Ocean-Open-Source
+2. Copy the `assets` folder and `manifest` file into `ports/eventheocean/gamedata/`
 
-This port provides:
-- A custom-compiled `lime-legacy.ndll` (the NME/Lime rendering engine) cross-compiled for aarch64 with:
+## What the port provides
+
+This port includes a full aarch64 Linux build — no Linux version of the game is required. The port provides:
+- Cross-compiled `EventheOcean` game binary and Haxe runtime (`.dso` files) for aarch64
+- Custom-compiled `lime-legacy.ndll` (the NME/Lime rendering engine) with:
   - KMSDRM video backend support
   - Software renderer scaled to device display (640x480)
   - Fullscreen and input fixes for handheld devices
@@ -58,14 +56,8 @@ This port provides:
 - Display output: SDL_RenderSetScale to device resolution via KMSDRM
 - The game uses HaxeFlixel + OpenFL + Lime Legacy (NME) runtime
 - The `lime-legacy.ndll` is compiled from the Lime 2.9.0 legacy C++ source with aarch64 cross-compilation
+- Game binary cross-compiled on Ubuntu (WSL2) using `aarch64-linux-gnu-g++`
 
 ## Known Issues
 
 - Mayor cutscene map panning may not scroll correctly (map markers visible but camera pan disabled)
-- Performance is adequate but not perfectly smooth on all devices
-
-## Build Information
-
-Built and tested on RG35XX H running muOS.
-
-Cross-compiled on Ubuntu (WSL2) using `aarch64-linux-gnu-g++`.
