@@ -39,6 +39,7 @@ if [ ! -d "$GAMEDIR/gamedata/assets" ]; then
 fi
 
 # Save directory - bind game saves
+mkdir -p "$GAMEDIR/conf/.EvenTheOcean"
 bind_directories ~/.config/EvenTheOcean "$GAMEDIR/conf/.EvenTheOcean"
 
 # --- Apply port patches (first run or after update) ---
